@@ -7,11 +7,17 @@ import java.time.format.DateTimeFormatter
 /**
  * Created by Pavel on 03.08.2015.
  */
-public class NbrbCheck(val gui: RatesInfoForm) {
+public class NbrbCheck(vararg listeners: (info: RatesInfo) -> Unit) {
     private final val ratesDateFormat = DateTimeFormatter.ofPattern("dd.MM.yy")
     private final val lastUpdateDateFormat = DateTimeFormatter.ofPattern("HH:mm:ss dd.MM.yy")
 
-    private var dateOfCurrentRate: LocalDate? = null;
+    private var dateOfCurrentRate: LocalDate? = null
+
+    private val changeRateListeners: List<(info: RatesInfo) -> Unit>
+
+    init {
+        changeRateListeners = listeners.toList()
+    }
 
     public fun check(): Boolean {
         val curState = NbrbPageState()
@@ -29,7 +35,8 @@ public class NbrbCheck(val gui: RatesInfoForm) {
                     curState.getCurrentRateOfEUR(), curState.getCurrentRateOfUSD(), curState.getCurrentRateOfRUB(),
                     difEUR, difUSD, difRUB)
 
-            gui.updateInfo(ratesInfo.toRatesInfoFormData())
+            // notify listeners
+            changeRateListeners forEach { l -> l(ratesInfo) }
 
             dateOfCurrentRate = curState.getCurrentDate()
 
@@ -38,4 +45,6 @@ public class NbrbCheck(val gui: RatesInfoForm) {
 
         return false
     }
+
+
 }

@@ -1,4 +1,6 @@
-package com.paulyerger.nbrb.listener;
+package com.paulyerger.nbrb.view.desktop;
+
+import com.paulyerger.nbrb.listener.RatesInfo;
 
 import javax.swing.*;
 import java.awt.*;
@@ -29,29 +31,31 @@ public class RatesInfoForm extends JFrame {
     public RatesInfoForm() throws HeadlessException {
         setTitle("Nbrb listener");
         add(mainPanel);
+        pack();
+        setResizable(false);
     }
 
-    public void updateInfo(RatesInfoFormData data) {
+    public void updateInfo(RatesInfo data) {
         lastUpdateLabel.setText(data.getLastUpdateVal());
 
         currentDateLabel.setText(data.getCurrentDateVal());
         previousDateLabel.setText(data.getPreviousDateVal());
 
-        prevEurLabel.setText(data.getPrevEurVal().toString());
-        prevUsdLabel.setText(data.getPrevUsdVal().toString());
-        prevRubLabel.setText(data.getPrevRubVal().toString());
+        prevEurLabel.setText(String.valueOf(data.getPrevEurVal()));
+        prevUsdLabel.setText(String.valueOf(data.getPrevUsdVal()));
+        prevRubLabel.setText(String.valueOf(data.getPrevRubVal()));
 
-        curEurLabel.setText(data.getCurEurVal().toString());
-        curUsdLabel.setText(data.getCurUsdVal().toString());
-        curRubLabel.setText(data.getCurRubVal().toString());
+        curEurLabel.setText(String.valueOf(data.getCurEurVal()));
+        curUsdLabel.setText(String.valueOf(data.getCurUsdVal()));
+        curRubLabel.setText(String.valueOf(data.getCurRubVal()));
 
-        difEurLabel.setText(data.getDifEurVal().toString());
+        difEurLabel.setText(String.valueOf(data.getDifEurVal()));
         changeDifLabelColor(difEurLabel, data.getDifEurVal());
 
-        difUsdLabel.setText(data.getDifUsdVal().toString());
+        difUsdLabel.setText(String.valueOf(data.getDifUsdVal()));
         changeDifLabelColor(difUsdLabel, data.getDifUsdVal());
 
-        difRubLabel.setText(data.getDifRubVal().toString());
+        difRubLabel.setText(String.valueOf(data.getDifRubVal()));
         changeDifLabelColor(difRubLabel, data.getDifRubVal());
     }
 
