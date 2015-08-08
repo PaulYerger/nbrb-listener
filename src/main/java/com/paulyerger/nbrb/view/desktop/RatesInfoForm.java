@@ -9,6 +9,8 @@ import java.awt.*;
  * Created by Pavel on 03.08.2015.
  */
 public class RatesInfoForm extends JFrame {
+    private static final Color GREEN_COLOR = new Color(21, 98, 12);
+
     private JLabel lastUpdateLabel;
 
     private JLabel currentDateLabel;
@@ -64,7 +66,7 @@ public class RatesInfoForm extends JFrame {
 
         switch (Double.compare(dif, 0)) {
             case 1:
-                textColor = Color.GREEN;
+                textColor = GREEN_COLOR;
                 break;
             case -1:
                 textColor = Color.RED;

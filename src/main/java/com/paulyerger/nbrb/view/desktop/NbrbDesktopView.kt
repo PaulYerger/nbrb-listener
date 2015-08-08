@@ -36,6 +36,7 @@ public class NbrbDesktopView {
     public fun onInfoUpdate(info: RatesInfo): Unit {
         infoWindow.updateInfo(info)
         infoWindow.setVisible(true)
+        infoWindow.setState(Frame.MAXIMIZED_BOTH)
     }
 
     private fun getPopupMenu(): PopupMenu {

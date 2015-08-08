@@ -13,5 +13,4 @@ fun main(args: Array<String>) {
     val nbrbCheck = NbrbCheck({ desktopView.onInfoUpdate(it) })
 
     NbrbCheckRunner({ nbrbCheck.check() }).start();
-
 }
