@@ -4,12 +4,14 @@ import com.paulyerger.nbrb.listener.RatesInfo;
 
 import javax.swing.*;
 import java.awt.*;
+import java.text.DecimalFormat;
 
 /**
  * Created by Pavel on 03.08.2015.
  */
 public class RatesInfoForm extends JFrame {
     private static final Color GREEN_COLOR = new Color(21, 98, 12);
+    private static final DecimalFormat decimalFormat = new DecimalFormat("##.##");
 
     private JLabel lastUpdateLabel;
 
@@ -51,13 +53,13 @@ public class RatesInfoForm extends JFrame {
         curUsdLabel.setText(String.valueOf(data.getCurUsdVal()));
         curRubLabel.setText(String.valueOf(data.getCurRubVal()));
 
-        difEurLabel.setText(String.valueOf(data.getDifEurVal()));
+        difEurLabel.setText(decimalFormat.format(data.getDifEurVal()));
         changeDifLabelColor(difEurLabel, data.getDifEurVal());
 
-        difUsdLabel.setText(String.valueOf(data.getDifUsdVal()));
+        difUsdLabel.setText(decimalFormat.format(data.getDifUsdVal()));
         changeDifLabelColor(difUsdLabel, data.getDifUsdVal());
 
-        difRubLabel.setText(String.valueOf(data.getDifRubVal()));
+        difRubLabel.setText(decimalFormat.format(data.getDifRubVal()));
         changeDifLabelColor(difRubLabel, data.getDifRubVal());
     }
 
