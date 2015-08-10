@@ -26,7 +26,7 @@ public class NbrbDesktopView {
 
         trayIcon.addMouseListener(object : MouseAdapter() {
             override fun mouseClicked(e: MouseEvent) {
-                if (e.getClickCount() == 2) infoWindow.setVisible(true)
+                if (e.getClickCount() == 2) showWindow()
             }
         })
 
@@ -35,15 +35,14 @@ public class NbrbDesktopView {
 
     public fun onInfoUpdate(info: RatesInfo): Unit {
         infoWindow.updateInfo(info)
-        infoWindow.setVisible(true)
-        infoWindow.setState(Frame.MAXIMIZED_BOTH)
+        showWindow()
     }
 
     private fun getPopupMenu(): PopupMenu {
         val popupMenu = PopupMenu()
 
         val openMenuItem = MenuItem("Open")
-        openMenuItem.addActionListener({ infoWindow.setVisible(true) })
+        openMenuItem.addActionListener({ showWindow() })
         popupMenu.add(openMenuItem)
 
         val exitMenuItem = MenuItem("Exit")
@@ -51,5 +50,10 @@ public class NbrbDesktopView {
         popupMenu.add(exitMenuItem)
 
         return popupMenu
+    }
+
+    private fun showWindow(): Unit {
+        infoWindow.setVisible(true)
+        infoWindow.setExtendedState(Frame.NORMAL)
     }
 }

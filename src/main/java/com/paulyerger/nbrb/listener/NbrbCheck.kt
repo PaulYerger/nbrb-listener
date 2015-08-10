@@ -19,7 +19,7 @@ public class NbrbCheck(vararg listeners: (info: RatesInfo) -> Unit) {
         changeRateListeners = listeners.toList()
     }
 
-    public fun check(): Boolean {
+    public fun check(): LocalDate {
         val curState = NbrbPageState()
 
         // update if empty state or state was changed
@@ -40,10 +40,9 @@ public class NbrbCheck(vararg listeners: (info: RatesInfo) -> Unit) {
 
             dateOfCurrentRate = curState.getCurrentDate()
 
-            return true
         }
 
-        return false
+        return curState.getCurrentDate()
     }
 
 

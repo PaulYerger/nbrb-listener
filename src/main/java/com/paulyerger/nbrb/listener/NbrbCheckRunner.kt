@@ -1,5 +1,7 @@
 package com.paulyerger.nbrb.listener
 
+import java.time.LocalDate
+import java.time.temporal.ChronoUnit
 import java.util.Calendar
 import java.util.Date
 import java.util.Timer
@@ -9,7 +11,7 @@ import java.util.concurrent.TimeUnit
 /**
  * Created by Pavel on 03.08.2015.
  */
-public class NbrbCheckRunner(val checkerFun: () -> Boolean) {
+public class NbrbCheckRunner(val checkerFun: () -> LocalDate) {
     private val timer = Timer(false)
     private val timerTask = NbrbCheckTimerTask()
 
@@ -18,11 +20,10 @@ public class NbrbCheckRunner(val checkerFun: () -> Boolean) {
 
     private inner class NbrbCheckTimerTask : TimerTask() {
         override fun run() {
-            val isCurrentValue = checkerFun()
+            val currentDate = checkerFun()
 
-            // if rates was updated or current time greater then max check time, then schedule next fix to tomorrow
-            if (isCurrentValue and (Calendar.getInstance().get(Calendar.HOUR) < 14)) {
-                this.cancel();
+            if (currentDate.getDayOfYear() == LocalDate.now().plus(1, ChronoUnit.DAYS).getDayOfYear()) {
+                this.cancel()
                 timer.purge()
 
                 timer.schedule(NbrbCheckTimerTask(), getTomorrowStartTime(), TimeUnit.MINUTES.toMillis(2))
